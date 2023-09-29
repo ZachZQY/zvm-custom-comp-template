@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable no-empty-pattern */
 import { useState } from 'react';
 import zionMdapi from "zion-mdapi"
 
