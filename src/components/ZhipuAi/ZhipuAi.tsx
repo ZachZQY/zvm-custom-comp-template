@@ -3,9 +3,7 @@ import zionMdapi from "zion-mdapi"
 
 interface ZhipuAiProps {
   globalData: Record<string, any>;
-  config: any;
-  input: any;
-  output: any;
+  content?: string;
 }
 
 
@@ -25,31 +23,21 @@ export function ZhipuAi(props: ZhipuAiProps) {
   const mdapi = zionMdapi.init(config);
   return <button onClick={
     async () => {
-      props.output.status = "开始"
       props.globalData.content = "";
-      props.output.content = "";
-      if (!props.input.prompt) {
-        props.input.prompt = [{
+      await mdapi.zhipuAi.chat({
+        prompt: [{
           role: "user",
           content: "你好"
         }]
-      }
-
-      await mdapi.zhipuAi.chat(props.input, "sse-invoke", (res: any) => {
+      }, "sse-invoke", (res: any) => {
         if (res.event != "add" && res.event != "finish") {
-          props.output.status = "出错";
           props.globalData.content = res.data
 
         } else if (res.event == 'add') {
-          props.output.status = "进行";
           props.globalData.content += res.data;
-          props.output.content += res.data;
-        } else {
-          props.output.status = "完成";
         }
       })
       console.log("globalData.content:", props.globalData.content);
-      console.log("output.content:", props.output.content);
     }
 
 

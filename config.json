@@ -6,19 +6,11 @@
       "description": "zAi sse-问答",
       "itemInputs": [
         {
-          "fieldName": "config",
-          "type": "OBJECT"
-        },
-        {
-          "fieldName": "input",
-          "type": "OBJECT"
-        },
-        {
-          "fieldName": "output",
-          "type": "OBJECT"
+          "fieldName": "content",
+          "type": "TEXT"
         }
       ]
     }
   },
-  "version": "1.1.6"
+  "version": "1.1.7"
 }
