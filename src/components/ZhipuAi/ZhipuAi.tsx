@@ -10,13 +10,19 @@ interface ZhipuAiProps {
 
 
 export function ZhipuAi(props: ZhipuAiProps) {
-  if (!props.config.env) {
-    props.config.env = "H5"
-    props.config.zhipuAi = {
+  // if (!props.config.env) {
+  //   props.config.env = "H5"
+  //   props.config.zhipuAi = {
+  //     api_key: "786b9e4cf8acffe30b7e83863545a845.tpCbmqDYbazovuaW"
+  //   }
+  // }
+  const config = {
+    env: "H5",
+    zhipuAi: {
       api_key: "786b9e4cf8acffe30b7e83863545a845.tpCbmqDYbazovuaW"
     }
   }
-  const mdapi = zionMdapi.init(props.config);
+  const mdapi = zionMdapi.init(config);
   return <button onClick={
     async () => {
       props.output.status = "开始"
