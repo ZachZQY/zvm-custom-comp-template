@@ -1,16 +1,24 @@
 {
   "customComponentItems": {
-    "Count": {
-      "name": "Count",
-      "imagePath": "preview/count.jpeg",
-      "description": "test description, test description, test description",
+    "ZhipuAi": {
+      "name": "ZhipuAi",
+      "imagePath": "preview/assistant.jpg",
+      "description": "zAi sse-问答",
       "itemInputs": [
         {
-          "fieldName": "foo",
-          "type": "TEXT"
+          "fieldName": "config",
+          "type": "OBJECT"
+        },
+        {
+          "fieldName": "input",
+          "type": "OBJECT"
+        },
+        {
+          "fieldName": "output",
+          "type": "OBJECT"
         }
       ]
     }
   },
-  "version": "1.1.4"
+  "version": "1.1.5"
 }

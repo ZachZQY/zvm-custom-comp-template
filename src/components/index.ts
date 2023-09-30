@@ -1,3 +1,3 @@
-import { Count } from './Count';
+import { ZhipuAi } from './ZhipuAi';
 
-export default { Count };
+export default { ZhipuAi };
