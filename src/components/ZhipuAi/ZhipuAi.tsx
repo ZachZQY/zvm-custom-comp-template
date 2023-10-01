@@ -12,6 +12,7 @@ interface ZhipuAiProps {
 }
 
 export function ZhipuAi(props: ZhipuAiProps) {
+  console.log("组件接收的props:", props);
   const { isSend } = props;
   const [content, setContent] = useState("点击发送按钮，返回对话内容");
   const config = {

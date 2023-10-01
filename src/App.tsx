@@ -6,7 +6,7 @@ function App() {
   return (
     <BrowserRouter>
       <div style={{ height: '60px', width: '60px' }}>
-        <ZhipuAi globalData={{}} />
+        <ZhipuAi globalData={{}} isSend={false} />
       </div>
     </BrowserRouter>
   );

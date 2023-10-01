@@ -20,9 +20,13 @@
         {
           "fieldName": "api_key",
           "type": "TEXT"
+        },
+        {
+          "fieldName": "isSend",
+          "type": "BOOLEAN"
         }
       ]
     }
   },
-  "version": "1.1.10"
+  "version": "1.1.11"
 }
