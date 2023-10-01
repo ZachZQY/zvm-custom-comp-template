@@ -6,11 +6,23 @@
       "description": "zAi sse-问答",
       "itemInputs": [
         {
-          "fieldName": "content",
+          "fieldName": "input",
+          "type": "TEXT"
+        },
+        {
+          "fieldName": "output",
+          "type": "TEXT"
+        },
+        {
+          "fieldName": "token",
+          "type": "TEXT"
+        },
+        {
+          "fieldName": "api_key",
           "type": "TEXT"
         }
       ]
     }
   },
-  "version": "1.1.8"
+  "version": "1.1.10"
 }

@@ -1,28 +1,69 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import zionMdapi from "zion-mdapi"
 
 interface ZhipuAiProps {
   globalData: Record<string, any>;
-  content?: string;
+  input?: string;
+  output?: string;
+  token?: string;
+  api_key?: string;
+  isSend?: boolean;
 }
 
-
 export function ZhipuAi(props: ZhipuAiProps) {
-  // if (!props.config.env) {
-  //   props.config.env = "H5"
-  //   props.config.zhipuAi = {
-  //     api_key: "786b9e4cf8acffe30b7e83863545a845.tpCbmqDYbazovuaW"
-  //   }
-  // }
-  const [content, setContent] = useState("tips:");
+  const { isSend } = props;
+  const [content, setContent] = useState("点击发送按钮，返回对话内容");
   const config = {
     env: "H5",
     zhipuAi: {
-      api_key: "786b9e4cf8acffe30b7e83863545a845.tpCbmqDYbazovuaW"
+      api_key: props?.api_key || "786b9e4cf8acffe30b7e83863545a845.tpCbmqDYbazovuaW",
+      token: props?.token || "",
     }
   }
   const mdapi = zionMdapi.init(config);
+  let send_status = "空闲中";
+  useEffect(() => {
+    if (isSend && send_status == "空闲中") {
+      chat();
+    }
+    console.log('isSend changed to', isSend);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isSend]);
+
+  // 发送聊天
+  async function chat() {
+    send_status = "发送中";
+    let output = "";
+    interface ZhipuAiResult {
+      event: string;
+      id: string;
+      data: string;
+      meta?: any;
+    }
+    setContent("");
+    await mdapi.zhipuAi.chat({
+      prompt: [{
+        role: "user",
+        content: props?.input || "你好"
+      }]
+    }, "sse-invoke", (res: ZhipuAiResult) => {
+      if (res.event != "add" && res.event != "finish") {
+        send_status = "出错";
+        setContent("出错啦~");
+
+      } else if (res.event == 'add') {
+        send_status = "进行";
+        output += res.data;
+        setContent(output);
+      } else {
+        send_status = "结束";
+        console.log(res)
+      }
+    })
+    console.log("output:", output);
+    send_status = "空闲中";
+  }
   return (
     <div style={
       {
@@ -36,26 +77,7 @@ export function ZhipuAi(props: ZhipuAiProps) {
     }>
       <div>{content}</div>
       <button onClick={
-        async () => {
-          props.globalData.content = "";
-          setContent("");
-          await mdapi.zhipuAi.chat({
-            prompt: [{
-              role: "user",
-              content: "你好"
-            }]
-          }, "sse-invoke", (res: any) => {
-            if (res.event != "add" && res.event != "finish") {
-              props.globalData.content = "出错"
-              setContent("出错");
-
-            } else if (res.event == 'add') {
-              props.globalData.content += res.data;
-              setContent(props.globalData.content);
-            }
-          })
-          console.log("globalData.content:", props.globalData.content);
-        }
+        chat
       }>发送</button>
     </div>
   );
