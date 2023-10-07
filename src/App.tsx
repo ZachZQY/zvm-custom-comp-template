@@ -1,17 +1,16 @@
 import { ZhipuAi } from './components/ZhipuAi';
 import './App.scss';
 import { BrowserRouter } from 'react-router-dom';
-
+import { useState } from "react";
 function App() {
-  function setGlobalData() {
-    console.log('setGlobalData');
-  }
+
+  const [globalData, setGlobalData] = useState({});
   return (
     <BrowserRouter>
       <div style={{ height: '60px', width: '60px' }}>
-        <ZhipuAi globalData={{}} setGlobalData={
+        <ZhipuAi globalData={globalData} setGlobalData={
           setGlobalData
-        } isSend={false} />
+        } />
       </div>
     </BrowserRouter>
   );
