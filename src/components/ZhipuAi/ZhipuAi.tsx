@@ -4,8 +4,8 @@ import zionMdapi from "zion-mdapi"
 
 interface ZhipuAiProps {
   globalData: Record<string, any>;
+  setGlobalData: (data: Record<string, any>) => void;
   input?: string;
-  output?: string;
   token?: string;
   api_key?: string;
   isSend?: boolean;
@@ -13,7 +13,7 @@ interface ZhipuAiProps {
 
 export function ZhipuAi(props: ZhipuAiProps) {
   console.log("组件接收的props:", props);
-  const { isSend } = props;
+  const { isSend, globalData, setGlobalData } = props;
   const [content, setContent] = useState("点击发送按钮，返回对话内容");
   const config = {
     env: "H5",
@@ -50,13 +50,15 @@ export function ZhipuAi(props: ZhipuAiProps) {
       }]
     }, "sse-invoke", (res: ZhipuAiResult) => {
       if (res.event != "add" && res.event != "finish") {
-        send_status = "出错";
-        setContent("出错啦~");
-
+        console.log("出错的数据：", res);
       } else if (res.event == 'add') {
         send_status = "进行";
         output += res.data;
         setContent(output);
+        if (setGlobalData) {
+          setGlobalData({ ...globalData, content: output })
+        }
+
       } else {
         send_status = "结束";
         console.log(res)
