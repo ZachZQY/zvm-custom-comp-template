@@ -13,7 +13,6 @@ interface ZhipuAiProps {
 
 export function ZhipuAi(props: ZhipuAiProps) {
   console.log("组件接收的props:", props);
-  const { isSend, globalData, setGlobalData } = props;
   const [content, setContent] = useState("点击发送按钮，返回对话内容");
   const config = {
     env: "H5",
@@ -25,12 +24,12 @@ export function ZhipuAi(props: ZhipuAiProps) {
   const mdapi = zionMdapi.init(config);
   let send_status = "空闲中";
   useEffect(() => {
-    if (isSend && send_status == "空闲中") {
+    if (props.isSend && send_status == "空闲中") {
       chat();
     }
-    console.log('isSend changed to', isSend);
+    console.log('isSend changed to', props.isSend);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isSend]);
+  }, [props.isSend]);
 
   // 发送聊天
   async function chat() {
@@ -55,10 +54,7 @@ export function ZhipuAi(props: ZhipuAiProps) {
         send_status = "进行";
         output += res.data;
         setContent(output);
-        if (setGlobalData) {
-          setGlobalData({ ...globalData, content: output })
-        }
-
+        props.setGlobalData({ ...props.globalData, content: output })
       } else {
         send_status = "结束";
         console.log(res)
