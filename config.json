@@ -6,20 +6,8 @@
       "description": "zAi sse-问答",
       "itemInputs": [
         {
-          "fieldName": "config",
-          "type": "OBJECT"
-        },
-        {
-          "fieldName": "prompt",
-          "type": "ARRAY"
-        },
-        {
-          "fieldName": "temperature",
-          "type": "FLOAT8"
-        },
-        {
-          "fieldName": "top_p",
-          "type": "FLOAT8"
+          "fieldName": "chat_config",
+          "type": "TEXT"
         },
         {
           "fieldName": "isSend",
@@ -36,5 +24,5 @@
       ]
     }
   },
-  "version": "1.1.16"
+  "version": "1.2.1"
 }

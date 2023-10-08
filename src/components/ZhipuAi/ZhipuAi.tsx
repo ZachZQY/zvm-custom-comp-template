@@ -5,15 +5,14 @@ import zionMdapi from "zion-mdapi"
 interface ZhipuAiProps {
   globalData: Record<string, any>;
   setGlobalData: (data: Record<string, any>) => void;
-  prompt?: Array<any>;
-  temperature?: number;
-  top_p?: number;
+  chat_config?: string;
   isSend?: boolean;
   token?: string;
   api_key?: string;
 }
 
 export function ZhipuAi(props: ZhipuAiProps) {
+  console.log("组件接收参数", props);
   const config = {
     env: "H5",
     zhipuAi: {
@@ -41,12 +40,15 @@ export function ZhipuAi(props: ZhipuAiProps) {
       data: string;
       meta?: any;
     }
-    await mdapi.zhipuAi.chat({
-      model: "chatglm_pro",
-      temperature: props.temperature || 0.95,
-      top_p: props.top_p || 0.7,
-      prompt: props.prompt || [{ role: "user", content: "你好!" }],
-    }, "sse-invoke", (res: ZhipuAiResult) => {
+
+    const chat_config_str = props?.chat_config || JSON.stringify({
+      prompt: [{
+        role: "user",
+        content: "您好"
+      }]
+    });
+    const chat_config = JSON.parse(chat_config_str);
+    await mdapi.zhipuAi.chat(chat_config, "sse-invoke", (res: ZhipuAiResult) => {
       if (res.event != "add" && res.event != "finish") {
         console.log("出错的数据：", res);
       } else if (res.event == 'add') {
