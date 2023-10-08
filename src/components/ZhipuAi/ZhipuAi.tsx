@@ -5,10 +5,12 @@ import zionMdapi from "zion-mdapi"
 interface ZhipuAiProps {
   globalData: Record<string, any>;
   setGlobalData: (data: Record<string, any>) => void;
-  input?: string;
+  prompt?: Array<any>;
+  temperature?: number;
+  top_p?: number;
+  isSend?: boolean;
   token?: string;
   api_key?: string;
-  isSend?: boolean;
 }
 
 export function ZhipuAi(props: ZhipuAiProps) {
@@ -40,10 +42,10 @@ export function ZhipuAi(props: ZhipuAiProps) {
       meta?: any;
     }
     await mdapi.zhipuAi.chat({
-      prompt: [{
-        role: "user",
-        content: props?.input || "你好"
-      }]
+      model: "chatglm_pro",
+      temperature: props.temperature || 0.95,
+      top_p: props.top_p || 0.7,
+      prompt: props.prompt || [{ role: "user", content: "你好!" }],
     }, "sse-invoke", (res: ZhipuAiResult) => {
       if (res.event != "add" && res.event != "finish") {
         console.log("出错的数据：", res);

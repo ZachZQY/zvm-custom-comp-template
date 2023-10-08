@@ -6,8 +6,24 @@
       "description": "zAi sse-问答",
       "itemInputs": [
         {
-          "fieldName": "input",
-          "type": "TEXT"
+          "fieldName": "config",
+          "type": "OBJECT"
+        },
+        {
+          "fieldName": "prompt",
+          "type": "ARRAY"
+        },
+        {
+          "fieldName": "temperature",
+          "type": "FLOAT8"
+        },
+        {
+          "fieldName": "top_p",
+          "type": "FLOAT8"
+        },
+        {
+          "fieldName": "isSend",
+          "type": "BOOLEAN"
         },
         {
           "fieldName": "token",
@@ -16,13 +32,9 @@
         {
           "fieldName": "api_key",
           "type": "TEXT"
-        },
-        {
-          "fieldName": "isSend",
-          "type": "BOOLEAN"
         }
       ]
     }
   },
-  "version": "1.1.15"
+  "version": "1.1.16"
 }
