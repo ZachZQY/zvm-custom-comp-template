@@ -3,7 +3,7 @@
     "ZhipuAi": {
       "name": "ZhipuAi",
       "imagePath": "preview/assistant.jpg",
-      "description": "zAi sse-问答",
+      "description": "ZhipuAi sse-问答",
       "itemInputs": [
         {
           "fieldName": "chat_config",

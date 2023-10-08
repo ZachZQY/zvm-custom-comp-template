@@ -12,11 +12,11 @@ interface ZhipuAiProps {
 }
 
 export function ZhipuAi(props: ZhipuAiProps) {
-  console.log("组件接收参数", props);
+  //console.log("组件接收参数", props);
   const config = {
     env: "H5",
     zhipuAi: {
-      api_key: props?.api_key || "786b9e4cf8acffe30b7e83863545a845.tpCbmqDYbazovuaW",
+      api_key: props?.api_key || "",
       token: props?.token || "",
     }
   }
@@ -48,6 +48,7 @@ export function ZhipuAi(props: ZhipuAiProps) {
       }]
     });
     const chat_config = JSON.parse(chat_config_str);
+    console.log("chat_config", chat_config);
     await mdapi.zhipuAi.chat(chat_config, "sse-invoke", (res: ZhipuAiResult) => {
       if (res.event != "add" && res.event != "finish") {
         console.log("出错的数据：", res);
